@@ -46,10 +46,25 @@ var resource3 = 'https://jsonplaceholder.typicode.com/posts/1'
 
 // The other way to catch the error
 getToDo(resource1).then( (data) => {
+    console.log('resource1 resolved');
     console.log(data)
-}).catch((error) =>{
+    return getToDo(resource2)
+})
+    .then(data => {
+        console.log('resource2 resolved');
+        console.log(data)
+        return getToDo(resource3)
+    })
+        .then(data => {
+            console.log('resource3 resolved')
+            console.log(data)
+        })
+
+.catch((error) =>{
     console.log(error)
 })
+// Here we basically chaining the methods and it seems readable now compared to the use
+// of nested callbacks
 
 console.log(3)
 console.log(4)
