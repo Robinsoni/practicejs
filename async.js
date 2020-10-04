@@ -21,22 +21,32 @@ console.log(2)
 var resource1 = 'https://jsonplaceholder.typicode.com/todos/';
 var resource2 = 'https://jsonplaceholder.typicode.com/posts/1/comments';
 var resource3 = 'https://jsonplaceholder.typicode.com/posts/1'
-getToDo(resource1,(err,data) => {
-    console.log('callback fired')
-    console.log(data)
-    getToDo(resource2,(err,data) => {
-        console.log('2nd time fired')
-        console.log(data)
-        getToDo(resource3,(err,data) => {
-            console.log('3rd time fired')
-            console.log(data)
-        }
-        ) // there is a better of way of calling these functions instead and that will be handled 
-        /// using the promises
-    }
-    )
+const getSomething = () => {
     
+    // Let's see the promises so here 
+    // either the promises is resolved (we get the data) or it is rejected
+    return new Promise((resolve,reject) =>{
+        //reject('Error')
+        //resolve('Some data')
+        
+    }) 
+    
+}
+
+// this is one way
+/*getSomething().then( (data) => {
+    console.log(data)
+},(error) =>{
+    console.log(error)
+})*/
+
+// The other way to catch the error
+getSomething().then( (data) => {
+    console.log(data)
+}).catch((error) =>{
+    console.log(error)
 })
+
 console.log(3)
 console.log(4)
 // we can see the result in the networc section of the browser 
