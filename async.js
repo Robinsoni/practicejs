@@ -2,26 +2,30 @@
 // start something now and finish later
 // let's add the eventlistener
 
-const getToDo = (resource,callback) =>{
-    const request = new XMLHttpRequest();
-    request.addEventListener('readystatechange', () => {
-        if(request.readyState ===4 && request.status === 200){ // see MDN for finding out - why ?
-            data = JSON.parse(request.responseText)
-            callback(undefined,data); 
-        }else if(request.readyState===4){
-            callback('unsuccessful request',request.responseText);
-        }
-    })
+const getToDo = (resource) =>{
 
-    request.open('GET',resource)
-    request.send()
+    return new Promise((resolve,reject) => {
+        const request = new XMLHttpRequest();
+        request.addEventListener('readystatechange', () => {
+            if(request.readyState ===4 && request.status === 200){ // see MDN for finding out - why ?
+                data = JSON.parse(request.responseText)
+                resolve(data); 
+            }else if(request.readyState===4){
+                reject('unsuccessful request');
+            }
+        })
+
+        request.open('GET',resource)
+        request.send()
+    })
+    
 }
 console.log('1')
 console.log(2)
 var resource1 = 'https://jsonplaceholder.typicode.com/todos/';
 var resource2 = 'https://jsonplaceholder.typicode.com/posts/1/comments';
 var resource3 = 'https://jsonplaceholder.typicode.com/posts/1'
-const getSomething = () => {
+/*const getSomething = () => {
     
     // Let's see the promises so here 
     // either the promises is resolved (we get the data) or it is rejected
@@ -31,7 +35,7 @@ const getSomething = () => {
         
     }) 
     
-}
+}*/
 
 // this is one way
 /*getSomething().then( (data) => {
@@ -41,7 +45,7 @@ const getSomething = () => {
 })*/
 
 // The other way to catch the error
-getSomething().then( (data) => {
+getToDo(resource1).then( (data) => {
     console.log(data)
 }).catch((error) =>{
     console.log(error)
